@@ -1,0 +1,26 @@
+.subtittle {
+    display: flex;
+    justify-content: end;
+    gap: 50%;
+  
+}
+.series-card {
+  list-style: none;
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.series-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.series-title {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
