@@ -1,16 +1,15 @@
 "use strict";
 
-console.log(">> Ready :)");
-
 const seriesList = document.querySelector(".js_seriesList");
-const submitBtn = document.querySelector(".js_submitBtn");
 const form = document.querySelector(".js_form");
 const input = document.querySelector(".js_input");
+const favouriteList = document.querySelector(".js_favouritesList");
+
+const favourites = [];
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const searchText = input.value.trim();
-  console.log(form, "holiis");
   if (searchText !== "") {
     searchSeries(searchText);
   }
@@ -231,17 +230,62 @@ let series = [
   },
 ];
 
+renderSeries();
+
 function renderSeries() {
   seriesList.innerHTML = "";
-  series.forEach((item) => {
-    const html = `
-      <li class="series-card">
-        <img src="${item.images.jpg.image_url}" alt="${item.title}" class="series-image"/>
-        <h3 class="series-title">${item.title}</h3>
-      </li>
+
+  series.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.classList.add("series-card");
+    li.innerHTML = `
+      <img src="${item.images.jpg.image_url}" alt="${item.title}" class="series-image"/>
+      <h3 class="series-title">${item.title}</h3>`;
+    const isFavourite = favourites.some(
+      (favourite) => favouriteTitle === item.title
+    );
+    if (isFavourite) {
+      li.classList.add("is-favourite");
+    }
+    li.addEventListener("click", () => {
+      toggleFavorite(index, li);
+    });
+    seriesList.appendChild(li);
+  });
+}
+
+function toggleFavorite(index, listItem) {
+  const item = series[index];
+  const favIndex = favourites.findIndex((fav) => fav.title === item.title);
+
+  if (favIndex === -1) {
+    favourites.push(item);
+    listItem.classList.add("is-favourite"); // Añades la clase cuando se agrega a favoritos
+  } else {
+    favourites.splice(favIndex, 1);
+    listItem.classList.remove("is-favourite"); // La quitas cuando se elimina de favoritos
+  }
+
+  localStorage.setItem("favourites", JSON.stringify(favourites));
+
+  renderFavorites();
+}
+
+renderFavorites();
+
+function renderFavorites() {
+  favouriteList.innerHTML = "";
+
+  favourites.forEach((item) => {
+    const li = document.createElement("li");
+    li.classList.add("favourite-card");
+    li.innerHTML = `
+      <img src="${item.images.jpg.image_url}" alt="${item.title}" class="favourite-image"/>
+      <h3 class="favourite-title">${item.title}</h3>
     `;
-    seriesList.innerHTML += html;
+    favouriteList.appendChild(li);
   });
 }
 
 renderSeries();
+renderFavorites();
