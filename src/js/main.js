@@ -285,7 +285,8 @@ function renderFavorites() {
   });
 }
 
-const favouriteFromLs = JSON.parse(localStorage.getItem("favouritesList"));
+const favouriteFromLs = JSON.parse(localStorage.getItem("favourites")) || [];
+favourites.push(...favouriteFromLs);
 
 renderSeries();
 renderFavorites();
