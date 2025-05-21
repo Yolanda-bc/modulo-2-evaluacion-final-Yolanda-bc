@@ -5,11 +5,11 @@ const form = document.querySelector(".js_form");
 const input = document.querySelector(".js_input");
 const favouriteList = document.querySelector(".js_favouritesList");
 
-const favourites = [];
+const favourites = []; // ARRAY DONDE SE GUARDAN LAS MARCADAS COMO FAVORITAS
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const searchText = input.value.trim();
+  const searchText = input.value.trim(); //RECOGE LA INF,LO LIMPIA,QUITA ESPACIOS Y SI NO ESTA VACIO LLAMA A LA FUNCION.
   if (searchText !== "") {
     searchSeries(searchText);
   }
@@ -19,10 +19,10 @@ function searchSeries(query) {
   const url = `https://api.jikan.moe/v4/anime?q=${query}`;
 
   fetch(url)
-    .then((response) => response.json())
+    .then((response) => response.json()) //BUSCA LAS SERIES EN LA API,HACE LA PETICION Y LA CONVIERTE EN JSON,AGREGA EL RESULTADO A LA VARIABLE SERIES.
     .then((data) => {
       series = data.data;
-      renderSeries();
+      renderSeries(); //ACTUALIZA LA LISTA
     });
 }
 
@@ -233,21 +233,24 @@ let series = [
 renderSeries();
 
 function renderSeries() {
-  seriesList.innerHTML = "";
+  seriesList.innerHTML = ""; //LIMPIA EL CONTENIDO
 
   series.forEach((item, index) => {
-    const li = document.createElement("li");
+    //COGE LOS ELEMENTOS DEL ARRAY
+    const li = document.createElement("li"); //CREA LA LISTA
     li.classList.add("series-card");
     li.innerHTML = `
       <img src="${item.images.jpg.image_url}" alt="${item.title}" class="series-image"/>
       <h3 class="series-title">${item.title}</h3>`;
     const isFavourite = favourites.some(
+      //
       (favourite) => favourite.title === item.title
     );
     if (isFavourite) {
       li.classList.add("is-favourite");
     }
     li.addEventListener("click", () => {
+      //AÑADIR O QUITAR LAS FAVORITAS
       toggleFavorite(index, li);
     });
     seriesList.appendChild(li);
@@ -256,22 +259,24 @@ function renderSeries() {
 
 function toggleFavorite(index, listItem) {
   const item = series[index];
-  const favIndex = favourites.findIndex((fav) => fav.title === item.title);
+  const favIndex = favourites.findIndex((fav) => fav.title === item.title); //BUSCA SI LA SERIE ESTA EN FAVORITAS
 
   if (favIndex === -1) {
+    //SI NO ESTA LA AÑADE Y LA PINTA
     favourites.push(item);
     listItem.classList.add("is-favourite");
   } else {
-    favourites.splice(favIndex, 1);
+    favourites.splice(favIndex, 1); //SI ESTA LA ELIMINA Y QUITA EL ESTILO
     listItem.classList.remove("is-favourite");
   }
 
-  localStorage.setItem("favourites", JSON.stringify(favourites));
+  localStorage.setItem("favourites", JSON.stringify(favourites)); //GUARDA EL ARRAY FAVOURITES EN EL LS
 
-  renderFavorites();
+  renderFavorites(); //ACTUALIZA LA LISTA DE FAVORITAS
 }
 
 function renderFavorites() {
+  //MUESTRA LAS SERIES QUE ESTAN EN FAVORITAS
   favouriteList.innerHTML = "";
 
   favourites.forEach((item) => {
@@ -281,12 +286,12 @@ function renderFavorites() {
       <img src="${item.images.jpg.image_url}" alt="${item.title}" class="favourite-image"/>
       <h3 class="favourite-title">${item.title}</h3>
     `;
-    favouriteList.appendChild(li);
+    favouriteList.appendChild(li); //AÑADE LA SERIE COMO HIJA DEL CONTENEDOR PRINCIPAL(UL)
   });
 }
 
-const favouriteFromLs = JSON.parse(localStorage.getItem("favourites")) || [];
-favourites.push(...favouriteFromLs);
+const favouriteFromLs = JSON.parse(localStorage.getItem("favourites")) || []; //SI EL VALOR QUE NOS DA ES NULL ENTONCES USA UN ARRAY VACÍO
+favourites.push(...favouriteFromLs); //AGREGA MUCHOS ELEMENTOS A OTRO ARRAY SIN ANIDARLOS
 
-renderSeries();
+renderSeries(); // MUESTRA LLA LISTA DE SERIES Y DE FAVORITAS AL CARGAR LA PAGINA
 renderFavorites();
