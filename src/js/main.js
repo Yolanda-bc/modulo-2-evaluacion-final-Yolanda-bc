@@ -242,7 +242,7 @@ function renderSeries() {
       <img src="${item.images.jpg.image_url}" alt="${item.title}" class="series-image"/>
       <h3 class="series-title">${item.title}</h3>`;
     const isFavourite = favourites.some(
-      (favourite) => favouriteTitle === item.title
+      (favourite) => favourite.title === item.title
     );
     if (isFavourite) {
       li.classList.add("is-favourite");
@@ -260,18 +260,16 @@ function toggleFavorite(index, listItem) {
 
   if (favIndex === -1) {
     favourites.push(item);
-    listItem.classList.add("is-favourite"); // Añades la clase cuando se agrega a favoritos
+    listItem.classList.add("is-favourite");
   } else {
     favourites.splice(favIndex, 1);
-    listItem.classList.remove("is-favourite"); // La quitas cuando se elimina de favoritos
+    listItem.classList.remove("is-favourite");
   }
 
   localStorage.setItem("favourites", JSON.stringify(favourites));
 
   renderFavorites();
 }
-
-renderFavorites();
 
 function renderFavorites() {
   favouriteList.innerHTML = "";
@@ -286,6 +284,8 @@ function renderFavorites() {
     favouriteList.appendChild(li);
   });
 }
+
+const favouriteFromLs = JSON.parse(localStorage.getItem("favouritesList"));
 
 renderSeries();
 renderFavorites();
