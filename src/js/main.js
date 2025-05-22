@@ -4,6 +4,7 @@ const seriesList = document.querySelector(".js_seriesList");
 const form = document.querySelector(".js_form");
 const input = document.querySelector(".js_input");
 const favouriteList = document.querySelector(".js_favouritesList");
+const LogBtn = document.querySelector(".js_logbtn");
 
 const favourites = []; // ARRAY DONDE SE GUARDAN LAS MARCADAS COMO FAVORITAS
 
@@ -29,6 +30,7 @@ function searchSeries(query) {
 let series = [
   {
     title: "Naruto",
+    type: "TV",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1141/142503.jpg",
@@ -37,6 +39,7 @@ let series = [
   },
   {
     title: "The Last: Naruto the Movie",
+    type: "TV",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1491/134498.jpg",
@@ -53,6 +56,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden Movie 6 - Road to Ninja",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1620/94336.jpg",
@@ -61,6 +65,7 @@ let series = [
   },
   {
     title: "Naruto Movie 1: Dai Katsugeki!! Yuki Hime Ninpouchou Dattebayo!",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1231/134484.jpg",
@@ -69,6 +74,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden Movie 1",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1703/134493.jpg",
@@ -77,6 +83,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden Movie 2 - Kizuna",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1484/134494.jpg",
@@ -85,6 +92,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden Movie 4 - The Lost Tower",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1479/116734.jpg",
@@ -93,6 +101,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden Movie 5 - Blood Prison",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1500/134496.jpg",
@@ -101,6 +110,7 @@ let series = [
   },
   {
     title: "Naruto Movie 2: Dai Gekitotsu! Maboroshi no Chiteiiseki Dattebayo!",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1114/134485.jpg",
@@ -110,6 +120,7 @@ let series = [
   {
     title:
       "Naruto Movie 3: Dai Koufun! Mikazuki Jima no Animaru Panic Dattebayo!",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1918/134487.jpg",
@@ -118,6 +129,7 @@ let series = [
   },
   {
     title: "Boruto: Naruto the Movie - Naruto ga Hokage ni Natta Hi",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/6/77678.jpg",
@@ -126,6 +138,7 @@ let series = [
   },
   {
     title: "Naruto Narutimate Hero 3",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/10/11244.jpg",
@@ -134,6 +147,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden - Sunny Side Battle",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1047/91638.jpg",
@@ -142,6 +156,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden - Shippuu! 'Konoha Gakuen' Den",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/5/51895.jpg",
@@ -150,6 +165,7 @@ let series = [
   },
   {
     title: "Naruto Soyokazeden Movie",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/10/31573.jpg",
@@ -158,6 +174,7 @@ let series = [
   },
   {
     title: "Road of Naruto",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1731/128787.jpg",
@@ -166,6 +183,7 @@ let series = [
   },
   {
     title: "Boruto: Naruto Next Generations",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1091/99847.jpg",
@@ -174,6 +192,7 @@ let series = [
   },
   {
     title: "Kamiusagi Rope x Boruto",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/3/88377.jpg",
@@ -182,6 +201,7 @@ let series = [
   },
   {
     title: "Naruto x UT",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/3/30485.jpg",
@@ -190,6 +210,7 @@ let series = [
   },
   {
     title: "Boruto: Naruto Next Generations Part 2",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1604/134068.jpg",
@@ -198,6 +219,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1565/111305.jpg",
@@ -206,6 +228,7 @@ let series = [
   },
   {
     title: "Naruto: Shippuuden Movie 3 - Hi no Ishi wo Tsugu Mono",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/1493/116732.jpg",
@@ -214,6 +237,7 @@ let series = [
   },
   {
     title: "Naruto SD: Rock Lee no Seishun Full-Power Ninden",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/13/36475.jpg",
@@ -222,6 +246,7 @@ let series = [
   },
   {
     title: "Naruto: Takigakure no Shitou - Ore ga Eiyuu Dattebayo!",
+    type: "Movie",
     images: {
       jpg: {
         image_url: "https://cdn.myanimelist.net/images/anime/11/20921.jpg",
@@ -289,6 +314,12 @@ function renderFavorites() {
     favouriteList.appendChild(li); //AÑADE LA SERIE COMO HIJA DEL CONTENEDOR PRINCIPAL(UL)
   });
 }
+LogBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  for (const LogBtn of favourites) {
+    console.log(LogBtn);
+  }
+});
 
 const favouriteFromLs = JSON.parse(localStorage.getItem("favourites")) || []; //SI EL VALOR QUE NOS DA ES NULL ENTONCES USA UN ARRAY VACÍO
 favourites.push(...favouriteFromLs); //AGREGA MUCHOS ELEMENTOS A OTRO ARRAY SIN ANIDARLOS
