@@ -5,6 +5,7 @@ const form = document.querySelector(".js_form");
 const input = document.querySelector(".js_input");
 const favouriteList = document.querySelector(".js_favouritesList");
 const LogBtn = document.querySelector(".js_logbtn");
+const resetBtn = document.querySelector(".reset");
 
 const favourites = []; // ARRAY DONDE SE GUARDAN LAS MARCADAS COMO FAVORITAS
 
@@ -255,8 +256,6 @@ let series = [
   },
 ];
 
-renderSeries();
-
 function renderSeries() {
   seriesList.innerHTML = ""; //LIMPIA EL CONTENIDO
 
@@ -267,11 +266,7 @@ function renderSeries() {
     li.innerHTML = `
       <img src="${item.images.jpg.image_url}" alt="${item.title}" class="series-image"/>
       <h3 class="series-title">${item.title}</h3>`;
-    const isFavourite = favourites.some(
-      //
-      (favourite) => favourite.title === item.title
-    );
-    if (isFavourite) {
+    if (favourites.some((fav) => fav.title === item.title)) {
       li.classList.add("is-favourite");
     }
     li.addEventListener("click", () => {
@@ -314,11 +309,21 @@ function renderFavorites() {
     favouriteList.appendChild(li); //AÑADE LA SERIE COMO HIJA DEL CONTENEDOR PRINCIPAL(UL)
   });
 }
+resetBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  //limpia array y localstorage
+  favourites.length = 0;
+  localStorage.removeItem("favourites");
+
+  //limpiar la seccion de favoritas
+  const allSeriesCards = document.querySelectorAll(".series-card");
+  allSeriesCards.forEach((card) => card.classList.remove("is-favourite"));
+  renderFavorites();
+});
 LogBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  for (const LogBtn of favourites) {
-    console.log(LogBtn);
-  }
+
+  console.log("Favoritas actuakes:", favourites);
 });
 
 const favouriteFromLs = JSON.parse(localStorage.getItem("favourites")) || []; //SI EL VALOR QUE NOS DA ES NULL ENTONCES USA UN ARRAY VACÍO
