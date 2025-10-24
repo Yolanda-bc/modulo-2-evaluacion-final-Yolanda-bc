@@ -1,14 +1,19 @@
 .page {
   background-color: bisque;
+  
+
 }
 .form {
   margin-top: 100px;
   margin-left: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 .subtittle {
   display: flex;
-  justify-content: end;
-  gap: 50%;
+  justify-content: center;
+  gap: 50rem;
 }
 .series-card {
   list-style: none;
@@ -54,10 +59,30 @@
 }
 .submit,
 .reset,
-.text {
+.text,
+.js_logbtn {
   border-radius: 10px;
   font-size: 25px;
 }
 h2 {
   color: gray;
+}
+.page_main{
+  text-align: center;
+}
+
+
+@media (max-width:750px) {
+  
+    .subtittle
+    {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .form {
+    display:flex;
+    justify-content: center;
+    margin-right: 55px;
+  }
 }
